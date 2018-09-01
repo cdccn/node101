@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "request": ""
+    },
+    "devDependencies": {
+        "jasmine-node": "^1.16.0"
+    }
+}
