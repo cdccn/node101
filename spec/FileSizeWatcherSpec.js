@@ -12,9 +12,19 @@ describe( "FileSizeWatcher", function(){
             watcher.stop();
     });
 
+    it("should not accept path without /" , function(done){
+
+        var path = "var/tmp/filesizewatcher.test";
+
+        watcher = new FileSizeWatcher( path );
+        watcher.on("error" , function(err){
+            console.log( "Error : " + err );
+            expect(err).toBe("Path does not start with a slash");
+            done();
+        });
+    });
 
     it("should fire a \"grew\" event when the file grew in size", function(done){
-
         var path = "/var/tmp/filesizewatcher.test";
         exec("rm -f " + path + " ; touch " + path , function(){
             
@@ -32,4 +42,26 @@ describe( "FileSizeWatcher", function(){
             exec( "echo \"test\" > " + path , function(){});
         });
     });
+
+    it("should fire a \"shrank\" event when the file is reducing in size" , function(done){
+        var path = "/var/tmp/filesizewatcher.test";
+        exec("rm -f " + path + " ; echo \"test\" > " + path , function(){
+            
+            console.log("let's start watching");
+            
+            watcher = new FileSizeWatcher( path );
+
+            watcher.on("shrank" , function(loss){
+                console.log("The file has shrunk by " + loss);
+                expect(loss).toBe(1);
+                done();
+            });
+
+            // let's remove 1 byte
+            exec( "echo \"tes\" > " + path , function(){});
+
+        });
+    });
+
+
 });

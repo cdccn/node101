@@ -9,7 +9,9 @@ var FileSizeWatcher = function( path ){
 
     if ( /^\//.test(path) === false )
     {
-        self.callbacks["error"]("Path does not start with a slash");
+        process.nextTick( function(){
+            self.callbacks["error"]("Path does not start with a slash");
+        });
         return;
     }
 
@@ -25,9 +27,13 @@ var FileSizeWatcher = function( path ){
                     self.callbacks["grew"](stats.size - self.lastfilesize);
                     self.lastfilesize = stats.size;
                 }
+                else if( stats.size < self.lastfilesize)
+                {
+                    self.callbacks["shrank"](self.lastfilesize - stats.size);
+                    self.lastfilesize = stats.size;
+                }
             });
         } , 1000 );
-
     console.log("Ready to watch " + path);
 };
 
