@@ -9,6 +9,11 @@ var FileSizeWatcher = function( path ){
 
     if ( /^\//.test(path) === false )
     {
+        //!!!!!!!!
+        // This is very important : since the callback is not set yet (we are in the
+        // constructor), we need to tell Node to execute the callback in the next loop
+        // we do that with process.nextTick
+        //!!!!!!!!
         process.nextTick( function(){
             self.callbacks["error"]("Path does not start with a slash");
         });
