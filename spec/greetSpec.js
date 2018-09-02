@@ -1,3 +1,6 @@
+//
+// Basic tutorial in Jasmine for Node.js
+//
 var g = require( "../src/greet").greet;
 
 console.log( g() );
