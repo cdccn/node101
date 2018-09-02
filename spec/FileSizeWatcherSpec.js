@@ -56,12 +56,12 @@ describe( "FileSizeWatcher", function(){
                 expect(loss).toBe(1);
                 done();
             });
-
             // let's remove 1 byte
             exec( "echo \"tes\" > " + path , function(){});
-
         });
     });
+
+    it( "should fire an error when the file does not exist");
 
 
 });

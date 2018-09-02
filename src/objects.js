@@ -1,3 +1,8 @@
+/**
+ * 
+ * Basic use cases of objects in Javascript / node
+ * 
+ */
 
 // with objects
 console.log("Emulate OOP with custom objects");
@@ -41,7 +46,7 @@ var c2 = new Car();
 c1.honk();
 c2.honk();
 
-// now the true way
+// now the official way
 console.log("OOP with native Object.create method");
 
 var vehicule = {};

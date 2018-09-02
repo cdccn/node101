@@ -1,3 +1,8 @@
+/**
+ * 
+ * A simple file size watcher implemented in asynchronous with hand made Emitter.
+ * 
+ */
 "use strict";
 
 var fs = require("fs");
